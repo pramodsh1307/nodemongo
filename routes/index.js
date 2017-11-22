@@ -1,8 +1,6 @@
 'use strict';
-
-var gtCommon = require('gt-common');
-
-var ApiOutputRenderer = gtCommon.ApiOutputRenderer;
+var lib = require('../lib');
+var ApiOutputRenderer = lib.ApiOutputRenderer;
 
 var testController = function(req, res, next) {
   req.response = {

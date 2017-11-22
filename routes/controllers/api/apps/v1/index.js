@@ -1,5 +1,5 @@
 'use strict';
-
+var lib = require('../../../../../lib');
 var UsersController = require('./users_controller');
 var ApiOutputRenderer = lib.ApiOutputRenderer;
 

@@ -1,9 +1,10 @@
 'use strict';
 
 var lib = require('../lib');
+var helpers = require('../helpers');
 var redis = lib.redis;
 var schemas = require('../schemas');
-var logger = gtCommon.Logger(__filename);
+var logger = helpers.Logger(__filename);
 var mongoose = lib.mongo;
 var config = require('config');
 var appConfig = config.appConfig;

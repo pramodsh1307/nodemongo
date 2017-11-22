@@ -1,10 +1,9 @@
 'use strict';
 
-var gtCommon = require('gt-common');
-
+var lib = require('../../../lib');
 var HealthController = require('./health_controller');
 
-var ApiOutputRenderer = gtCommon.ApiOutputRenderer;
+var ApiOutputRenderer = lib.ApiOutputRenderer;
 
 module.exports = function(app) {
 

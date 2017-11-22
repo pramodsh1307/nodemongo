@@ -13,7 +13,7 @@ var lib = require('../../../../../lib');
 var User = models.User;
 var ApplicationHelper = helpers.ApplicationHelper
 var appConfig = config.appConfig;
-var logger = gtCommon.Logger(__filename);
+var logger = helpers.Logger(__filename);
 
 var UsersController = {
 

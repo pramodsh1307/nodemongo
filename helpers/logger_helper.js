@@ -5,7 +5,7 @@ var fs = require('fs');
 var path = require('path');
 
 var basePath = process.env.PROJECT_ROOT || process.env.PWD || '.';
-var dateTimeHelper = require(basePath + '/helpers').DateTimeHelper;
+var DateTimeHelper = require('./date_time_helper');
 
 var defaultLogFile = basePath + '/logs/' + (process.env.NODE_ENV || 'development') + ".log";
 var defaultFileId = fs.openSync(defaultLogFile, 'a', 0o777);
@@ -28,7 +28,7 @@ var Logger = function(pref, logFile) {
   }
 
   var log = function(prefix, message) {
-    message = dateTimeHelper.toString() + prefix + message + '\r\n';
+    message = DateTimeHelper.toString() + prefix + message + '\r\n';
     fs.write(fileId, message, null, 'utf8');
   };
 

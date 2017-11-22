@@ -11,6 +11,7 @@ var config = require('config');
 
 var path = require('path');
 var basePath = process.env.PROJECT_ROOT || process.env.PWD || '.';
+
 var helpers = require(basePath + '/helpers');
 var express = require('express');
 var http = require('http');
