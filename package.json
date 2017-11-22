@@ -18,7 +18,8 @@
     "mongoose-timestamp": "^0.6.0",
     "request": "^2.79.0",
     "response-time": "^2.3.1",
-    "underscore": "^1.8.3"
+    "underscore": "^1.8.3",
+    "moment": "^2.19.2"
   },
   "author": "Gourav Sharma",
   "contributors": [

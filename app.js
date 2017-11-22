@@ -5,19 +5,20 @@ process.env.NODE_ENV = process.env.NODE_ENV || 'development';
 process.env.PORT = process.env.PORT || 3000;
 
 // initialize monitoring
-require('newrelic');
 
 // GT dependencies
 var config = require('config');
 
 var path = require('path');
+var basePath = process.env.PROJECT_ROOT || process.env.PWD || '.';
+var helpers = require(basePath + '/helpers');
 var express = require('express');
 var http = require('http');
 var util = require('util');
 var responseTime = require('response-time');
 var bodyParser = require('body-parser');
 
-var requestLogger = gtCommon.Logger('app');
+var requestLogger = helpers.Logger('app');
 
 var app = express();
 
