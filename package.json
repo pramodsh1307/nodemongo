@@ -1,0 +1,30 @@
+{
+  "name": "nodemongo",
+  "version": "1.0.0",
+  "description": "Node mongo is quickstart project for learning node js with mongo database and redis cache",
+  "main": "app.js",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:pramodsh1307/nodemongo.git"
+  },
+  "dependencies": {
+    "body-parser": "^1.15.2",
+    "base-64": "0.1.0",
+    "config": "0.4.19",
+    "ejs": "^2.5.2",
+    "express": "^4.14.0",
+    "ioredis": "^2.5.0",
+    "mongoose": "^4.6.6",
+    "mongoose-timestamp": "^0.6.0",
+    "request": "^2.79.0",
+    "response-time": "^2.3.1",
+    "underscore": "^1.8.3"
+  },
+  "author": "Gourav Sharma",
+  "contributors": [
+    {
+      "name": "Pramod Sharma",
+      "email": "psharma232@gmail.com"
+    }
+  ]
+}
