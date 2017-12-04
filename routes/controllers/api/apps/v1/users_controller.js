@@ -27,7 +27,7 @@ var UsersController = {
     create: function (req, res, next) {
 
       var params = {
-          mobileNumber: req.params.mobile_number,
+          mobileNumber: req.body.mobile_number,
           firstName: req.body.first_name,
           lastName: req.body.last_name,
           email: req.body.email,
@@ -44,6 +44,7 @@ var UsersController = {
           }
           next();
       });
+
     },
 
     /**
@@ -51,7 +52,7 @@ var UsersController = {
      */
     record: function (req, res, next) {
         var params = {
-            userId: req.params.user_id,
+            userId: req.body.user_id,
             latitude: req.body.latitude,
             longitude: req.body.longitude,
             timestamp: req.body.timestamp
@@ -66,8 +67,72 @@ var UsersController = {
             }
             next();
         });
-    }
+    },
 
+    /**
+    * Get user detail
+    */
+    getUser: function (req, res, next) {
+      var params = {
+        userId: req.params.user_id
+      };
+      
+      User.findUser(params, function(err, user) {
+        if (err) {
+          return next(err);
+        }
+
+        req.response = {user: user};
+
+        next();
+
+      });
+
+    },
+    
+    getAllUser: function(req, res, next) {
+      
+      var params = {};
+
+      User.findAllUser(params, function(err, user) {
+        if (err) {
+          return next(err);
+        }
+
+        req.response = {users: user};
+
+        next();
+
+      });
+    },
+
+
+    /**
+    * Update user detail
+    */
+    putUser: function (req, res, next) {
+
+      var userInstanceObj = req.response.user;
+
+      var params = {
+          mobileNumber: req.body.mobile_number,
+          firstName: req.body.first_name,
+          lastName: req.body.last_name,
+          email: req.body.email,
+          gender: req.body.gender,
+          dob: req.body.dob
+      };
+
+      userInstanceObj.updateUser(params, function(err, user){
+        if (err) {
+          return next(err);
+        }
+
+        req.response = {user: user};
+        next();
+
+      });
+    },
 };
 
 module.exports = UsersController;

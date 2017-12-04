@@ -53,6 +53,40 @@ var updateUserStatus = function(user, status, cb) {
 
 };
 
+userSchema.statics.findUser = function(params, cb) {
+
+  if (!params.userId) {
+    let err = new Error("Invalid Params");
+    return cb(err);
+  }
+
+  User.findOne({_id: params.userId}, function(err, user) {
+
+    if(err) return cb(err);
+
+    cb(null, user);
+
+  });  
+
+};
+
+userSchema.statics.findAllUser = function(params, cb) {
+
+  /*if (!params.userId) {
+    let err = new Error("Invalid Params");
+    return cb(err);
+  }*/
+  //sort(profile.first_name: 1)
+
+  User.find({}, function(err, user) {
+
+    if(err) return cb(err);
+
+    cb(null, user);
+
+  });  
+
+};
 
 userSchema.statics.findOrCreate = function(params, cb){
 
@@ -72,14 +106,14 @@ userSchema.statics.findOrCreate = function(params, cb){
         return cb(err);
       }
 
-      user = new User({
+    user = new User({ profile: {
         mobile_number: params.mobileNumber,
         first_name: params.firstName,
         last_name: params.lastName,
         email: params.email,
-        gender: params.gender,
+        gender: params.gender.toUpperCase(),
         dob: params.dob
-      });
+      } });
 
       user.save(function(err){
         if(err) return cb(err);
@@ -103,15 +137,15 @@ userSchema.methods.updateUser = function (params, cb) {
 
   let self = this;
 
-  self.first_name = params.firstName;
-  self.last_name = params.lastName;
-  self.email = params.email;
-  self.gender = params.gender;
-  self.dob = params.dob;
-
+  self.profile.first_name = params.firstName;
+  self.profile.last_name = params.lastName;
+  self.profile.email = params.email;
+  self.profile.gender = params.gender.toUpperCase();
+  self.profile.dob = params.dob;
+  console.log(self);
   self.save(function (err) {
     if (err) return cb(err);
-    cb(err, self);
+    cb(null, self);
   });
 }
 
@@ -144,16 +178,6 @@ userSchema.statics.recordUserLastLocation = function (params, cb) {
         last_coordinates = JSON.parse(last_coordinates[0][1]);
 
         if (last_coordinates != null) {
-
-          var last_coordinates = {
-              latitude: last_coordinates.location.coordinates[0],
-              longitude: last_coordinates.location.coordinates[1]
-          };
-
-          var current_coordinates = {
-              latitude: params.latitude,
-              longitude: params.longitude
-          };
 
         let location = {type: 'Point', coordinates: [params.latitude, params.longitude]};
         let lastLocation = {location: location, timestamp: params.timestamp, status: status};
