@@ -28,6 +28,7 @@ var UserProfileSchema = new Schema({
   gender: { type: String, required: true, enum: ['MALE', 'FEMALE'] },
   dob: { type: Date, required: true },
   is_mobile_verified: { type: Boolean, default: false },
+  mobile_verification_code: { type: Number, default: null },
   is_email_verified: { type: Boolean, default: false }
 });
 

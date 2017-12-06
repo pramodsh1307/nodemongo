@@ -110,7 +110,7 @@ userSchema.statics.findOrCreate = function(params, cb){
         mobile_number: params.mobileNumber,
         first_name: params.firstName,
         last_name: params.lastName,
-        email: params.email,
+        email: params.email.toLowerCase(),
         gender: params.gender.toUpperCase(),
         dob: params.dob
       } });
@@ -139,16 +139,39 @@ userSchema.methods.updateUser = function (params, cb) {
 
   self.profile.first_name = params.firstName;
   self.profile.last_name = params.lastName;
-  self.profile.email = params.email;
+  self.profile.email = params.email.toLowerCase();
   self.profile.gender = params.gender.toUpperCase();
   self.profile.dob = params.dob;
-  console.log(self);
+
   self.save(function (err) {
     if (err) return cb(err);
     cb(null, self);
   });
 }
 
+userSchema.methods.checkOrVerifyMobile = function (params, cb) {
+  
+  if (!params.mobile_verification_code) {
+    let err = new Error("Invalid Params");
+    return cb(err);
+  }
+
+  let self = this;
+
+  if (self.profile.mobile_verification_code != params.mobile_verification_code) {
+    let err = new Error("Invalid verification code");
+    return cb(err);
+  }
+
+  self.profile.mobile_verification_code = '';
+  self.profile.is_mobile_verified = true;
+
+  self.save( function (err){
+    if(err) return cb(err);
+    cb(null, self);
+  });
+
+}
 
 userSchema.statics.recordUserLastLocation = function (params, cb) {
 

@@ -3,6 +3,7 @@
 var request = require('request');
 
 var _ = require('underscore');
+var randomstring = require('randomstring');
 
 var config = require('config');
 
@@ -33,6 +34,7 @@ var UsersController = {
           email: req.body.email,
           gender: req.body.gender,
           dob: req.body.dob,
+          mobile_verification_code: randomstring.generate({ length: 6, charset: 'numeric' })
       };
 
       User.findOrCreate(params, function (err, user) {
@@ -132,6 +134,27 @@ var UsersController = {
         next();
 
       });
+    },
+
+    /*
+    * get user mobile verification code and verify it
+    */
+    verifyUserMobile: function (req, res, next) {
+      var userInstanceObj = req.response.user;
+
+      var params = {
+          mobile_verification_code: req.params.mobile_verification_code
+      };
+
+      userInstanceObj.checkOrVerifyMobile(params, function(err, verificationResponse){
+        if(err) {
+          return next(err);
+        }
+
+        req.response = {mobile_verification_status: true}
+        next();
+      });
+
     },
 };
 
